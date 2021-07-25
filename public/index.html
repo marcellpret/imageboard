@@ -1,10 +1,53 @@
 <!doctype html>
 <html>
+
 <head>
-    <title></title>
+    <title>Imageboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;900&display=swap" rel="stylesheet">
 </head>
+
 <body>
+    <h1>Image <span>📷</span> Board</h1>
+
+    <!-- This container is for our Vue instance -->
+    <!-- It will have access to our Vue code in script.js -->
+    <div id='main'>
+        <div class="cards">
+            <div v-for='img in images' :key='img.id' class="image-card">
+                <img :src="img.url" :alt="img.title">
+                <div class="card-info">
+                    <h3>{{img.title}}</h3>
+                    <p>{{img.description}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- <h2>Hiiiii {{ name }}!!! Vue is awesome!!</h2>
+        <h2>10 * 2 = {{ 10 * 2 }}</h2>
+        <h2>Name capitalized is: {{ name.toUpperCase() }}</h2>
+
+        <h3 v-if='seen'>Yay, you can see me! 👀</h3>
+        <h3 v-else>'seen' is falsey if you see this!</h3> -->
+
+        <!-- Looping in Vue -->
+        <!-- <ul>
+            <li v-for='city in cities' :key='city.id' @click='myFunction(city.name)'>{{city.name}}, {{city.country}}
+            </li>
+        </ul> -->
+        <!-- city represents each element in our array of cities -->
+        <!-- cities is the array of objects (cities) that we're looping through! -->
+        <!-- we're providing key a unique value (city.id) to optimise rendering -->
+        <!-- The :key is short for v-bind:key - this makes sure to evaluate city.id as a value inside data instead of a literal string -->
+        <!-- another way to write @click is v-on:click -->
+
+    </div>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <!-- Order matters! Make sure you link your script.js last -->
+    <script src="/js/script.js"></script>
 </body>
+
 </html>

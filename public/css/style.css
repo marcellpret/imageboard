@@ -1,0 +1,77 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Rubik", sans-serif;
+    background: rgb(40, 75, 99);
+    background: radial-gradient(
+        circle at top,
+        rgba(40, 75, 99, 1) 0%,
+        rgba(53, 53, 53, 1) 40%
+    );
+    /* background-image: url(/images/pattern.png),
+        radial-gradient(
+            circle at top,
+            rgba(40, 75, 99, 1) 0%,
+            rgba(53, 53, 53, 1) 40%
+        );
+    background-blend-mode: multiply; */
+    text-align: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 90vw;
+    height: 100vh;
+}
+
+h1 {
+    color: #d9d9d9;
+    letter-spacing: 5px;
+    margin: 1.5em 0;
+    font-size: 3rem;
+}
+
+h1 span {
+    font-size: 1.2em;
+}
+
+img {
+    max-width: 100%;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.image-card {
+    width: 400px;
+    background-color: #d9d9d9;
+    border-radius: 3px;
+    padding: 1em;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.image-card img {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.card-info {
+    padding: 2em 1em 1em 1em;
+    text-align: left;
+}
+
+.card-info h3 {
+    color: #284b63;
+    margin-bottom: 0.5em;
+    font-size: 1.25em;
+}
+
+.card-info p {
+    color: #3c6e71;
+    font-size: 1.1em;
+}
