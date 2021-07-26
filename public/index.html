@@ -10,11 +10,23 @@
 </head>
 
 <body>
-    <h1>Image <span>📷</span> Board</h1>
-
-    <!-- This container is for our Vue instance -->
-    <!-- It will have access to our Vue code in script.js -->
     <div id='main'>
+        <h1>Image <span>📷</span> Board</h1>
+
+        <div class="add-image">
+            <label for="title">Title</label>
+            <input v-model='title' type="text" name="title" id="title">
+            <label for="description">Description</label>
+            <input v-model='description' type="text" name="description" id="description">
+            <label for="username">Username</label>
+            <input v-model='username' type="text" name="username" id="username">
+            <label for="file">Upload Picture</label>
+            <input type="file" name="file" id="file" accept="image/*" @change="handleFileSelection">
+            <button v-on:click="uploadImage">Submit</button>
+        </div>
+
+        <!-- This container is for our Vue instance -->
+        <!-- It will have access to our Vue code in script.js -->
         <div class="cards">
             <div v-for='img in images' :key='img.id' class="image-card">
                 <img :src="img.url" :alt="img.title">
@@ -24,23 +36,6 @@
                 </div>
             </div>
         </div>
-        <!-- <h2>Hiiiii {{ name }}!!! Vue is awesome!!</h2>
-        <h2>10 * 2 = {{ 10 * 2 }}</h2>
-        <h2>Name capitalized is: {{ name.toUpperCase() }}</h2>
-
-        <h3 v-if='seen'>Yay, you can see me! 👀</h3>
-        <h3 v-else>'seen' is falsey if you see this!</h3> -->
-
-        <!-- Looping in Vue -->
-        <!-- <ul>
-            <li v-for='city in cities' :key='city.id' @click='myFunction(city.name)'>{{city.name}}, {{city.country}}
-            </li>
-        </ul> -->
-        <!-- city represents each element in our array of cities -->
-        <!-- cities is the array of objects (cities) that we're looping through! -->
-        <!-- we're providing key a unique value (city.id) to optimise rendering -->
-        <!-- The :key is short for v-bind:key - this makes sure to evaluate city.id as a value inside data instead of a literal string -->
-        <!-- another way to write @click is v-on:click -->
 
     </div>
 
