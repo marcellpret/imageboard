@@ -30,6 +30,7 @@
                 formData.append("file", this.file);
                 axios.post("/upload", formData).then(({ data }) => {
                     // take the image object returned and put it into the existing array
+                    this.images.unshift(data);
                     console.log("data: ", data);
                 });
             },
