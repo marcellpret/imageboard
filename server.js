@@ -56,6 +56,8 @@ app.post("/upload", uploader.single("file"), s3.upload, function (req, res) {
             req.body.description,
             req.body.username
         ).then(({ rows: lastImage }) => {
+            console.log("lastImage: ", lastImage);
+
             res.json(lastImage[0]);
         });
     } else {

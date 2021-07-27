@@ -28,7 +28,8 @@
         <!-- This container is for our Vue instance -->
         <!-- It will have access to our Vue code in script.js -->
         <div class="cards">
-            <div v-for='img in images' :key='img.id' class="image-card">
+            <div v-for='img in images' :key='img.id' class="image-card"
+                @click="selectImg(img.id, img.title, img.description, img.username, img.url)">
                 <img :src="img.url" :alt="img.title">
                 <div class="card-info">
                     <h3>{{img.title}}</h3>
@@ -37,7 +38,33 @@
             </div>
         </div>
 
+        <popup-image v-if="imgSelected" v-bind:img-id="imgSelected" v-bind:img-title="imgTitle"
+            v-bind:img-description="imgDescription" v-bind:img-username="imgUsername" v-bind:img-url="imgUrl"
+            @close="closeMe">
+        </popup-image>
+        <!-- end of first component inside main div -->
+        <!-- looping over our moods -->
+
     </div>
+
+    <script id="popup-image-template" type="text/x-template">
+        <div class="popup-image">
+            <div class="frame" @click="notifyParentToDoSth">
+                
+                <h1>{{imgTitle}}</h1>
+                <img :src="imgUrl" :alt="imgTitle">
+                <p>{{imgDescription}}</p>
+                <p>by {{imgUsername}}</p>
+            </div>
+        </div>
+            <!-- <div class="component">
+                <h1>Here goes my component</h1>
+                <h1 @click="notifyParentToDoSth">hey parent close me please!</h1>
+                <h2> Hello {{name}} </h2>
+                <h3>count currently is: {{count}}</h3>
+                <button @click="updateCount"> Count up please!</button>
+            </div> -->
+        </script>
 
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>

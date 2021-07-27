@@ -19,6 +19,10 @@ body {
             rgba(53, 53, 53, 1) 40%
         );
     background-blend-mode: multiply; */
+    position: relative;
+}
+
+#main {
     text-align: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -28,7 +32,7 @@ body {
 h1 {
     color: #d9d9d9;
     letter-spacing: 5px;
-    margin: 1.5em 0;
+    padding: 1.5em 0;
     font-size: 3rem;
 }
 
@@ -77,4 +81,27 @@ img {
 .card-info p {
     color: #3c6e71;
     font-size: 1.1em;
+}
+
+/* IMAGE POPUP */
+.popup-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.frame {
+    width: 90vw;
+    background-color: rosybrown;
+    border-radius: 3px;
+}
+
+.frame img {
+    height: 600px;
 }
