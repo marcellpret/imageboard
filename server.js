@@ -23,6 +23,7 @@ const uploader = multer({
         fileSize: 2097152,
     },
 });
+app.use(express.json());
 
 app.use(express.static("./public"));
 
@@ -65,6 +66,46 @@ app.post("/upload", uploader.single("file"), s3.upload, function (req, res) {
             success: false,
         });
     }
+});
+
+app.get("/comments", (req, res) => {
+    db.getComments(req.query.id)
+        .then(({ rows: comments }) => {
+            console.log("comments: ", comments);
+            res.json(comments);
+        })
+        .catch((err) => {
+            console.log("err in GET comments: ", err);
+            return err;
+        });
+});
+
+app.post("/comment", (req, res) => {
+    console.log("req.body: ", req.body);
+    const { text, user_comment, image_id } = req.body;
+    db.addComment(text, user_comment, image_id)
+        .then(({ rows: lastComment }) => {
+            console.log("lastComment: ", lastComment);
+
+            res.json(lastComment[0]);
+        })
+        .catch((err) => {
+            console.log("err in POST comment: ", err);
+            return err;
+        });
+});
+
+app.get("/more", (req, res) => {
+    db.getMoreImages(req.query.lowestId)
+        .then(({ rows: moreImages }) => {
+            console.log("moreImages: ", moreImages);
+
+            res.json(moreImages);
+        })
+        .catch((err) => {
+            console.log("err in GET more images: ", err);
+            return err;
+        });
 });
 
 app.listen(8080, () => console.log("Running on 8080"));

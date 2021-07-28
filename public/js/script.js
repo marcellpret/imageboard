@@ -9,20 +9,50 @@
                 name: "Scallion",
             };
         },
-        mounted: function () {
-            // console.log("my first component mounted", this);
-            // console.log("prop passed:", this.passingSomeProp);
-            console.log(this.imgUrl, this.imgUsername, this.imgDescription);
-        },
+        mounted: function () {},
         methods: {
-            updateCount: function () {
-                this.count++;
-            },
             notifyParentToDoSth: function () {
                 console.log(
                     "I want to let the main vue instance know it should do sth!"
                 );
                 this.$emit("close");
+            },
+        },
+    });
+
+    Vue.component("comments-component", {
+        template: "#comments-template",
+        props: ["imgId"],
+        data: function () {
+            return {
+                comments: [],
+                user_comment: "",
+                text: "",
+            };
+        },
+        mounted: function () {
+            console.log("imgId: ", this.imgId);
+            axios
+                .get("/comments", { params: { id: this.imgId } })
+                .then(({ data }) => {
+                    // this line right here updates data and will cause Vue to update our UI!!!
+                    this.comments = data;
+                    console.log("data: ", data);
+                })
+                .catch((err) => console.log("err in /start: ", err));
+        },
+        methods: {
+            addComment: function () {
+                var cmt = {
+                    text: this.text,
+                    user_comment: this.user_comment,
+                    image_id: this.imgId,
+                };
+                axios.post("/comment", cmt).then(({ data }) => {
+                    // take the image object returned and put it into the existing array
+                    this.comments.unshift(data);
+                    console.log("data: ", data);
+                });
             },
         },
     });
@@ -42,6 +72,8 @@
             imgDescription: "",
             imgUsername: "",
             imgUrl: "",
+            lowestId: null,
+            moreImages: true,
         }, // data ends here
         mounted: function () {
             console.log("my vue instance has mounted");
@@ -51,6 +83,8 @@
                 .then(({ data }) => {
                     // this line right here updates data and will cause Vue to update our UI!!!
                     this.images = data;
+                    this.lowestId = this.images[this.images.length - 1].id;
+                    console.log("this.lowestId: ", this.lowestId);
                 })
                 .catch((err) => console.log("err in /start: ", err));
         },
@@ -68,6 +102,26 @@
                     console.log("data: ", data);
                 });
             },
+            getMore: function () {
+                axios
+                    .get("/more", { params: { lowestId: this.lowestId } })
+                    .then(({ data }) => {
+                        this.images.push(...data);
+                        console.log("this.lowestId: ", this.lowestId);
+                        console.log("this.images: ", this.images);
+
+                        this.lowestId = this.images[this.images.length - 1].id;
+
+                        if (
+                            this.lowestId ===
+                            this.images[this.images.length - 1].lowestId
+                        ) {
+                            this.moreImages = false;
+                        }
+                    })
+                    .catch((err) => console.log("err in /more: ", err));
+            },
+
             handleFileSelection: function (e) {
                 console.log("e: ", e);
                 this.file = e.target.files[0];
