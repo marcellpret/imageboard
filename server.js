@@ -95,8 +95,21 @@ app.post("/comment", (req, res) => {
         });
 });
 
-app.get("/more", (req, res) => {
-    db.getMoreImages(req.query.lowestId)
+app.get("/image/:imgId", (req, res) => {
+    db.getImage(req.params.imgId)
+        .then(({ rows: image }) => {
+            console.log("image: ", image);
+
+            res.json(image);
+        })
+        .catch((err) => {
+            console.log("err in GET image: ", err);
+            return err;
+        });
+});
+
+app.get("/more/:lowestId", (req, res) => {
+    db.getMoreImages(req.params.lowestId)
         .then(({ rows: moreImages }) => {
             console.log("moreImages: ", moreImages);
 
@@ -104,6 +117,27 @@ app.get("/more", (req, res) => {
         })
         .catch((err) => {
             console.log("err in GET more images: ", err);
+            return err;
+        });
+});
+
+app.post("/delete/:id", (req, res) => {
+    db.deleteComments(req.params.id)
+        .then(({ rows }) => {
+            console.log("rows in delete: ", rows);
+            db.deleteImage(req.params.id)
+                .then(({ rows }) => {
+                    console.log("rows in delete: ", rows);
+                })
+                .catch((err) => {
+                    console.log("err in delete image: ", err);
+                    return err;
+                });
+
+            // res.json(lastComment[0]);
+        })
+        .catch((err) => {
+            console.log("err in delete comments: ", err);
             return err;
         });
 });

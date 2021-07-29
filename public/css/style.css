@@ -10,21 +10,26 @@
 
 body {
     font-family: "Rubik", sans-serif;
-    background: rgb(40, 75, 99);
-    background: radial-gradient(
+    /* background: rgb(40, 75, 99); */
+    /* background: radial-gradient(
         circle at top,
         rgba(40, 75, 99, 1) 0%,
         rgba(53, 53, 53, 1) 40%
-    );
-    /* background-image: url(/images/pattern.png),
+    ); */
+    background-image: url(/images/pattern.png),
         radial-gradient(
             circle at top,
             rgba(40, 75, 99, 1) 0%,
             rgba(53, 53, 53, 1) 40%
         );
-    background-blend-mode: multiply; */
+    background-blend-mode: multiply;
+    background-repeat: repeat-x;
     position: relative;
     min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
 }
 
 #main {
@@ -54,14 +59,28 @@ img {
     color: var(--gainsboro);
 }
 
-input,
-textarea,
-label {
+.add-image label {
     padding: 1em;
-    font-family: "Rubik", sans-serif;
 }
 
-input[type="text"] {
+#title {
+    position: relative;
+}
+
+#title svg {
+    position: absolute;
+    top: -59px;
+    left: -170px;
+}
+
+.add-image input,
+.add-image textarea {
+    padding: 1em;
+    font-family: "Rubik", sans-serif;
+    cursor: pointer;
+}
+
+.add-image input[type="text"] {
     background-color: transparent;
     border-style: none;
     border-bottom: 1px solid var(--gainsboro);
@@ -69,16 +88,16 @@ input[type="text"] {
     color: var(--gainsboro);
 }
 
-input[type="text"]:focus {
+.add-image input[type="text"]:focus {
     outline: none;
 }
 
-input[type="text"]:active {
+.add-image input[type="text"]:active {
     outline: none;
     background-color: transparent;
 }
 
-input[type="file"] {
+.add-image input[type="file"] {
     position: fixed;
     top: -100px;
 }
@@ -172,6 +191,9 @@ input[type="file"] {
     border-radius: 3px;
     position: relative;
     display: flex;
+    background-image: url(/images/pattern.png);
+    background-blend-mode: screen;
+    background-repeat: repeat-x;
 }
 
 .frame img {
@@ -184,29 +206,128 @@ input[type="file"] {
 
 .close {
     position: absolute;
-    top: 1.5em;
-    right: 1.5em;
+    top: 1.5rem;
+    right: 1.5rem;
     font-size: 1.5em;
-    font-weight: 900;
-    text-align: right;
     cursor: pointer;
+    stroke: var(--ming);
+}
+
+.close svg:hover {
+    stroke: var(--indigo-dye);
 }
 
 .popup-info {
     color: var(--indigo-dye);
     text-align: left;
     padding: 3em;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    width: 50%;
 }
 
-.frame h1 {
+.popup-info h1 {
     font-weight: 600;
     font-size: 3em;
+    margin-top: 1em;
 }
 
-.frame h4 {
+.popup-info h4 {
     font-size: 1.5em;
     font-weight: 400;
     font-style: italic;
     margin-bottom: 2em;
     color: var(--ming);
+}
+
+.popup-info p {
+    font-size: 1.3em;
+    padding-bottom: 3em;
+    min-height: 100px;
+}
+
+.delete {
+    background: url(/images/trash.png) bottom no-repeat;
+    background-size: cover;
+    width: 40px;
+    height: 52px;
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-position: top;
+}
+
+/* COMMENTS */
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 90%;
+}
+
+.comments label {
+    padding-bottom: 0.5em;
+}
+
+.comments input,
+.comments textarea {
+    font-size: 1em;
+    background-color: white;
+    color: var(--indigo-dye);
+    min-width: 80%;
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 2em;
+    padding: 1em;
+    font-family: "Rubik", sans-serif;
+}
+
+.comments h3 {
+    font-weight: 400;
+    padding: 2em 0 0.5em 0;
+}
+
+.comments button {
+    padding: 0.5em 1.5em;
+    border: none;
+    background-color: var(--ming);
+    color: var(--gainsboro);
+    font-size: 1em;
+    border-radius: 3px;
+}
+
+.comments li {
+    list-style: none;
+    margin: 1em;
+    padding: 1em;
+    border: white 1px solid;
+    border-radius: 3px;
+}
+
+.comments li q {
+    display: block;
+    margin-bottom: 0.2em;
+}
+
+.comments li em {
+    color: var(--ming);
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 900px) {
+    .frame {
+        flex-direction: column;
+    }
+
+    .frame img {
+        width: 100%;
+        height: 50%;
+    }
 }
