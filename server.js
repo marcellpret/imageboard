@@ -6,15 +6,6 @@ const uidSafe = require("uid-safe");
 const path = require("path");
 const s3 = require("./s3");
 
-if (process.env.NODE_ENV == "production") {
-    app.use((req, res, next) => {
-        if (req.headers["x-forwarded-proto"].startsWith("https")) {
-            return next();
-        }
-        res.redirect(`https://${req.hostname}${req.url}`);
-    });
-}
-
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, __dirname + "/uploads");
